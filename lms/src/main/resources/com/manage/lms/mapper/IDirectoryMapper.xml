@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.manage.lms.mapper.IDirectoryMapper">
+    <select id="selectAll" resultType="com.manage.lms.pojo.Directory">
+        SELECT * FROM directory
+    </select>
+
+    <insert id="insert" parameterType="com.manage.lms.pojo.Directory">
+        insert into directory(name,describes) values (#{name},#{describes})
+    </insert>
+
+    <select id="selectById" parameterType="long" resultType="com.manage.lms.pojo.Directory">
+        select * FROM directory where id = #{id}
+    </select>
+
+    <update id="update" parameterType="com.manage.lms.pojo.Directory">
+        update directory set name = #{name},describes = #{describes} where id = #{id}
+    </update>
+
+    <delete id="delete" parameterType="long">
+        delete from directory where id = #{id}
+    </delete>
+</mapper>

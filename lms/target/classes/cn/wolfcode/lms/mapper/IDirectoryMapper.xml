@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.wolfcode.lms.mapper.IDirectoryMapper">
+    <select id="selectAll" resultType="cn.wolfcode.lms.pojo.Directory">
+        SELECT * FROM directory
+    </select>
+    <insert id="insertDescribes" parameterType="cn.wolfcode.lms.pojo.Directory">
+        INSERT INTO directory(name,describes) VALUES(#{name},#{describes})
+    </insert>
+    <select id="selectById" resultType="cn.wolfcode.lms.pojo.Directory" parameterType="Long">
+        SELECT * FROM directory WHERE id=#{id}
+    </select>
+    <update id="updateById" parameterType="cn.wolfcode.lms.pojo.Directory">
+        UPDATE directory SET name=#{name},describes=#{describes} WHERE id=#{id}
+    </update>
+    <delete id="deleteById" parameterType="Long">
+        DELETE FROM directory WHERE id=#{id}
+    </delete>
+</mapper>

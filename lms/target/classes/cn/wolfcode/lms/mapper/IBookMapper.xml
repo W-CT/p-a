@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.wolfcode.lms.mapper.IBookMapper">
+    <!-- 登录查询返回User类型-->
+    <resultMap id="bookMap" type="cn.wolfcode.lms.pojo.Book">
+        <id property="id" column="id"/>
+        <result property="name" column="name"></result>
+        <result property="author" column="author"></result>
+        <result property="press" column="press"></result>
+        <result property="isbn" column="isbn"></result>
+        <result property="numbers" column="numbers"></result>
+        <association property="directory" javaType="cn.wolfcode.lms.pojo.Directory">
+            <id property="id" column="d_id"></id>
+            <result property="name" column="d_name"></result>
+        </association>
+    </resultMap>
+    <select id="filterQuery" parameterType="cn.wolfcode.lms.pojo.Book" resultMap="bookMap">
+        SELECT b.*,d.name d_name,d.id
+        FROM book b,directory d
+        <where>
+            b.dir_id=d.id
+            <if test="dirid==0">
+                AND b.id LIKE CONCAT('%',#{keyword},'%')
+            </if>
+            <if test="dirid==1">
+                AND b.name LIKE CONCAT('%',#{keyword},'%')
+            </if>
+            <if test="dirid==2">
+                AND b.author LIKE CONCAT('%',#{keyword},'%')
+            </if>
+            <if test="dirid==3">
+                AND b.press LIKE CONCAT('%',#{keyword},'%')
+            </if>
+            <if test="dirid==4">
+                AND b.isbn LIKE CONCAT('%',#{keyword},'%')
+            </if>
+            <if test="dirid==5">
+                AND d.name LIKE CONCAT('%',#{keyword},'%')
+            </if>
+        </where>
+    </select>
+</mapper>
